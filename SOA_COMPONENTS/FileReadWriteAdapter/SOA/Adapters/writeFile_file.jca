@@ -1,0 +1,12 @@
+<adapter-config name="writeFile" adapter="file" wsdlLocation="../WSDLs/writeFile.wsdl" xmlns="http://platform.integration.oracle/blocks/adapter/fw/metadata">
+  
+  <connection-factory location="eis/FileAdapter"/>
+  <endpoint-interaction portType="Write_ptt" operation="Write">
+    <interaction-spec className="oracle.tip.adapter.file.outbound.FileInteractionSpec">
+      <property name="PhysicalDirectory" value="C:\ftp\write"/>
+      <property name="Append" value="false"/>
+      <property name="FileNamingConvention" value="Emp_%yyyyMMdd%.txt"/>
+    </interaction-spec>
+  </endpoint-interaction>
+
+</adapter-config>
