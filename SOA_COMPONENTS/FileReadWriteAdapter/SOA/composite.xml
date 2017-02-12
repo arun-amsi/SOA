@@ -11,6 +11,41 @@
            xmlns:orawsp="http://schemas.oracle.com/ws/2006/01/policy"
            xmlns:ui="http://xmlns.oracle.com/soa/designer/"
            xmlns:sca-ext="http://xmlns.oracle.com/sca/1.0-ext">
+  <import namespace="http://xmlns.oracle.com/pcbpel/adapter/file/SOA_COMPONENTS/FileReadWriteAdapter/fileRead"
+          location="WSDLs/fileRead.wsdl" importType="wsdl"/>
+  <import namespace="http://xmlns.oracle.com/pcbpel/adapter/file/SOA_COMPONENTS/FileReadWriteAdapter/writeFile"
+          location="WSDLs/writeFile.wsdl" importType="wsdl"/>
+  <service name="fileRead" ui:wsdlLocation="WSDLs/fileRead.wsdl">
+    <interface.wsdl interface="http://xmlns.oracle.com/pcbpel/adapter/file/SOA_COMPONENTS/FileReadWriteAdapter/fileRead#wsdl.interface(Read_ptt)"/>
+    <binding.jca config="Adapters/fileRead_file.jca">
+      <property name="useRejectedMessageRecovery" type="xs:string" many="false" override="may">true</property>
+    </binding.jca>
+  </service>
   <property name="productVersion" type="xs:string" many="false">12.1.3.0.0</property>
   <property name="compositeID" type="xs:string" many="false">f9af769b-90a5-40ae-b06e-4c577e9ddfe5</property>
+  <component name="FileReadandWriteBPEL" version="2.0">
+    <implementation.bpel src="BPEL/FileReadandWriteBPEL.bpel"/>
+    <componentType>
+      <service name="fileRead" ui:wsdlLocation="WSDLs/fileRead.wsdl">
+        <interface.wsdl interface="http://xmlns.oracle.com/pcbpel/adapter/file/SOA_COMPONENTS/FileReadWriteAdapter/fileRead#wsdl.interface(Read_ptt)"/>
+      </service>
+      <reference name="writeFile" ui:wsdlLocation="WSDLs/writeFile.wsdl">
+        <interface.wsdl interface="http://xmlns.oracle.com/pcbpel/adapter/file/SOA_COMPONENTS/FileReadWriteAdapter/writeFile#wsdl.interface(Write_ptt)"/>
+      </reference>
+    </componentType>
+    <property name="bpel.config.transaction" type="xs:string" many="false">required</property>
+    <property name="bpel.config.oneWayDeliveryPolicy" type="xs:string" many="false">sync</property>
+  </component>
+  <reference name="writeFile" ui:wsdlLocation="WSDLs/writeFile.wsdl">
+    <interface.wsdl interface="http://xmlns.oracle.com/pcbpel/adapter/file/SOA_COMPONENTS/FileReadWriteAdapter/writeFile#wsdl.interface(Write_ptt)"/>
+    <binding.jca config="Adapters/writeFile_file.jca"/>
+  </reference>
+  <wire>
+    <source.uri>fileRead</source.uri>
+    <target.uri>FileReadandWriteBPEL/fileRead</target.uri>
+  </wire>
+  <wire>
+    <source.uri>FileReadandWriteBPEL/writeFile</source.uri>
+    <target.uri>writeFile</target.uri>
+  </wire>
 </composite>

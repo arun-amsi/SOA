@@ -1,2 +1,13 @@
 <?xml version = '1.0' encoding = 'UTF-8'?>
-<Faults/>
+<Faults>
+   <Fault>
+      <severity>warning</severity>
+      <loc/>
+      <line>20</line>
+      <col/>
+      <file>BPEL/FileReadandWriteBPEL.bpel</file>
+      <name>BPEL/FileReadandWriteBPEL.bpel</name>
+      <fix>You should place all explicit &lt;bpel:import> statements in a BPEL 2.0 process.</fix>
+      <msg>There are no explicit "import" statements in &lt;bpel:process> "FileReadandWriteBPEL" as required by BPEL 2.0 standard.</msg>
+   </Fault>
+</Faults>

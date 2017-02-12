@@ -70,6 +70,8 @@
       <list n="technologyScope">
          <string v="Maven"/>
          <string v="SOA"/>
+         <string v="WSDL"/>
+         <string v="WSPolicy"/>
          <string v="XML"/>
       </list>
    </hash>
@@ -278,4 +280,6 @@
          </list>
       </hash>
    </hash>
+   <value n="SCA_BPEL_FOLDER_PROPERTY_NAME" v="BPEL/"/>
+   <value n="SOA_TRANSFORMATION_FOLDER_NAME" v="Transformations/"/>
 </jpr:project>
