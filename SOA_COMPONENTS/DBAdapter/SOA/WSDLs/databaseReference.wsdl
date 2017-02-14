@@ -1,0 +1,28 @@
+<wsdl:definitions
+     name="databaseReference"
+     targetNamespace="http://xmlns.oracle.com/pcbpel/adapter/db/SOA_COMPONENTS/DBAdapter/databaseReference"
+     xmlns:tns="http://xmlns.oracle.com/pcbpel/adapter/db/SOA_COMPONENTS/DBAdapter/databaseReference"
+     xmlns:jca="http://xmlns.oracle.com/pcbpel/wsdl/jca/"
+     xmlns:plt="http://schemas.xmlsoap.org/ws/2003/05/partner-link/"
+     xmlns:top="http://xmlns.oracle.com/pcbpel/adapter/db/top/databaseReference"
+     xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+    >
+  <plt:partnerLinkType name="databaseReference_plt" >
+    <plt:role name="databaseReference_role" >
+      <plt:portType name="tns:databaseReference_ptt" />
+    </plt:role>
+  </plt:partnerLinkType>
+    <wsdl:types>
+      <schema xmlns="http://www.w3.org/2001/XMLSchema" >
+        <import namespace="http://xmlns.oracle.com/pcbpel/adapter/db/top/databaseReference" schemaLocation="../Schemas/databaseReference_table.xsd" />
+      </schema>
+    </wsdl:types>
+    <wsdl:message name="EmployeeCollection_msg">
+        <wsdl:part name="EmployeeCollection" element="top:EmployeeCollection"/>
+    </wsdl:message>
+    <wsdl:portType name="databaseReference_ptt">
+        <wsdl:operation name="insert">
+            <wsdl:input message="tns:EmployeeCollection_msg"/>
+        </wsdl:operation>
+    </wsdl:portType>
+</wsdl:definitions>

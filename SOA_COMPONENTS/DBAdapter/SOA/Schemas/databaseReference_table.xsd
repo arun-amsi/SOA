@@ -1,0 +1,23 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<xs:schema targetNamespace="http://xmlns.oracle.com/pcbpel/adapter/db/top/databaseReference" xmlns="http://xmlns.oracle.com/pcbpel/adapter/db/top/databaseReference" elementFormDefault="qualified" attributeFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+   <xs:element name="EmployeeCollection" type="EmployeeCollection"/>
+   <xs:complexType name="EmployeeCollection">
+      <xs:sequence>
+         <xs:element name="Employee" type="Employee" minOccurs="0" maxOccurs="unbounded"/>
+      </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name="Employee">
+      <xs:sequence>
+         <xs:element name="eid" type="xs:decimal"/>
+         <xs:element name="employeeName" type="string20" minOccurs="0" nillable="true"/>
+         <xs:element name="address" type="string20" minOccurs="0" nillable="true"/>
+         <xs:element name="phone" type="xs:decimal" minOccurs="0" nillable="true"/>
+         <xs:element name="state" type="xs:string" minOccurs="0" nillable="true"/>
+      </xs:sequence>
+   </xs:complexType>
+   <xs:simpleType name="string20">
+      <xs:restriction base="xs:string">
+         <xs:maxLength value="20"/>
+      </xs:restriction>
+   </xs:simpleType>
+</xs:schema>
