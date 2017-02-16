@@ -1,12 +1,12 @@
 <wsdl:definitions
-     name="fileRead"
-     targetNamespace="http://xmlns.oracle.com/pcbpel/adapter/file/SOA_COMPONENTS/DBAdapter/fileRead"
-     xmlns:tns="http://xmlns.oracle.com/pcbpel/adapter/file/SOA_COMPONENTS/DBAdapter/fileRead"
+     name="fileReadService"
+     targetNamespace="http://xmlns.oracle.com/pcbpel/adapter/file/SOA_COMPONENTS/DBAdapter/fileReadService"
+     xmlns:tns="http://xmlns.oracle.com/pcbpel/adapter/file/SOA_COMPONENTS/DBAdapter/fileReadService"
      xmlns:jca="http://xmlns.oracle.com/pcbpel/wsdl/jca/"
      xmlns:plt="http://schemas.xmlsoap.org/ws/2003/05/partner-link/"
      xmlns:pc="http://xmlns.oracle.com/pcbpel/"
      xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
-     xmlns:imp1="http://TargetNamespace.com/fileRead"
+     xmlns:imp1="http://TargetNamespace.com/fileReadService"
     >
   <plt:partnerLinkType name="Read_plt" >
     <plt:role name="Read_role" >
@@ -15,11 +15,11 @@
   </plt:partnerLinkType>
     <wsdl:types>
       <schema xmlns="http://www.w3.org/2001/XMLSchema" >
-        <import namespace="http://TargetNamespace.com/fileRead" schemaLocation="../Schemas/Employee.xsd" />
+        <import namespace="http://TargetNamespace.com/fileReadService" schemaLocation="../Schemas/DB_ADAPTER_SCHEMA.xsd" />
       </schema>
     </wsdl:types>
     <wsdl:message name="Read_msg">
-        <wsdl:part name="body" element="imp1:employee"/>
+        <wsdl:part name="body" element="imp1:Element"/>
     </wsdl:message>
     <wsdl:portType name="Read_ptt">
         <wsdl:operation name="Read">

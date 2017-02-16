@@ -4,10 +4,11 @@
    <annotationfile/>
    <iconize/>
    <partnerlink_locations>
-      <partnerlink name="fileRead" x="15" y="90" side="left"/>
-      <partnerlink name="databaseReference" x="622" y="284" side="right"/>
+      <partnerlink name="fileReadService" x="4" y="90" side="left"/>
+      <partnerlink name="dbAdapterService" x="4" y="476" side="left"/>
+      <partnerlink name="fileWriteService" x="4" y="284" side="left"/>
    </partnerlink_locations>
-   <graph_layout viewport="0,0,754,334" show_swimlanes="true">
+   <graph_layout viewport="0,118,762,507" show_swimlanes="true">
       <layout_item collapsed="false" xpath="/process" type="process" showhandlers="true"/>
       <layout_item collapsed="false" xpath="/process/sequence" type="sequence"/>
    </graph_layout>

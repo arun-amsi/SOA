@@ -1,5 +1,5 @@
 <?xml version = '1.0' encoding = 'UTF-8'?>
-<xs:schema targetNamespace="http://xmlns.oracle.com/pcbpel/adapter/db/top/databaseReference" xmlns="http://xmlns.oracle.com/pcbpel/adapter/db/top/databaseReference" elementFormDefault="qualified" attributeFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+<xs:schema targetNamespace="http://xmlns.oracle.com/pcbpel/adapter/db/top/dbWriteService" xmlns="http://xmlns.oracle.com/pcbpel/adapter/db/top/dbWriteService" elementFormDefault="qualified" attributeFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
    <xs:element name="EmployeeCollection" type="EmployeeCollection"/>
    <xs:complexType name="EmployeeCollection">
       <xs:sequence>

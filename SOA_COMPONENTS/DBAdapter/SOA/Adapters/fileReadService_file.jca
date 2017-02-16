@@ -1,16 +1,16 @@
-<adapter-config name="fileRead" adapter="file" wsdlLocation="../WSDLs/fileRead.wsdl" xmlns="http://platform.integration.oracle/blocks/adapter/fw/metadata">
+<adapter-config name="fileReadService" adapter="file" wsdlLocation="../WSDLs/fileReadService.wsdl" xmlns="http://platform.integration.oracle/blocks/adapter/fw/metadata">
   
-  <connection-factory location="eis/FileAdapter" UIincludeWildcard="Emp*.txt"/>
+  <connection-factory location="eis/FileAdapter" UIincludeWildcard="DBAdapter*.txt"/>
   <endpoint-activation portType="Read_ptt" operation="Read">
     <activation-spec className="oracle.tip.adapter.file.inbound.FileActivationSpec">
-      <property name="DeleteFile" value="false"/>
+      <property name="DeleteFile" value="true"/>
       <property name="MinimumAge" value="0"/>
       <property name="PhysicalDirectory" value="C:\soa\read"/>
       <property name="Recursive" value="true"/>
       <property name="PublishSize" value="1"/>
       <property name="PollingFrequency" value="10"/>
-      <property name="PhysicalArchiveDirectory" value="C:\soa\write"/>
-      <property name="IncludeFiles" value="Emp.*\.txt"/>
+      <property name="PhysicalArchiveDirectory" value="C:\soa\archive"/>
+      <property name="IncludeFiles" value="DBAdapter.*\.txt"/>
       <property name="UseHeaders" value="false"/>
     </activation-spec>
   </endpoint-activation>

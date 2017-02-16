@@ -1,0 +1,66 @@
+<?xml version = "1.0" encoding = "UTF-8" ?>
+<!--
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  Oracle JDeveloper BPEL Designer 
+  
+  Created: Thu Feb 16 22:34:45 IST 2017
+  Author:  Arun
+  Type: BPEL 2.0 Process
+  Purpose: Empty BPEL Process
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+-->
+<process name="DbAdapterBPELService"
+               targetNamespace="http://xmlns.oracle.com/SOA_COMPONENTS/DBAdapter/DbAdapterBPELService"
+               xmlns="http://docs.oasis-open.org/wsbpel/2.0/process/executable"
+               xmlns:client="http://xmlns.oracle.com/SOA_COMPONENTS/DBAdapter/DbAdapterBPELService"
+               xmlns:ora="http://schemas.oracle.com/xpath/extension"
+               xmlns:bpel="http://docs.oasis-open.org/wsbpel/2.0/process/executable"
+         xmlns:ns1="http://xmlns.oracle.com/pcbpel/adapter/file/SOA_COMPONENTS/DBAdapter/fileReadService"
+         xmlns:ns2="http://xmlns.oracle.com/pcbpel/adapter/file/SOA_COMPONENTS/DBAdapter/fileWriteReference"
+         xmlns:bpelx="http://schemas.oracle.com/bpel/extension"
+         xmlns:ns3="http://xmlns.oracle.com/pcbpel/adapter/db/SOA_COMPONENTS/DBAdapter/dbWriteService">
+
+  <!-- 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+     ORCHESTRATION LOGIC                                               
+     Set of activities coordinating the flow of messages across the    
+     services integrated within this business process                  
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  -->
+  <partnerLinks>
+    <partnerLink name="fileReadService" partnerLinkType="ns1:Read_plt" myRole="Read_role"/>
+    <partnerLink name="fileWriteReference" partnerLinkType="ns2:Write_plt" partnerRole="Write_role"/>
+    <partnerLink name="dbWriteService" partnerLinkType="ns3:dbWriteService_plt" partnerRole="dbWriteService_role"/>
+  </partnerLinks>
+  <variables>
+    <variable name="Read_InputVariable" messageType="ns1:Read_msg"/>
+    <variable name="Write_InputVariable" messageType="ns2:Write_msg"/>
+    <variable name="insert_InputVariable" messageType="ns3:EmployeeCollection_msg"/>
+  </variables>
+  <sequence name="main">
+    <receive name="ReceiveFile" createInstance="yes" partnerLink="fileReadService" portType="ns1:Read_ptt"
+             operation="Read" variable="Read_InputVariable"/>
+    <assign name="FileWriteTranformation">
+      <bpelx:annotation>
+        <bpelx:pattern patternName="bpelx:transformation"></bpelx:pattern>
+      </bpelx:annotation>
+      <copy>
+        <from>ora:doXSLTransformForDoc("../Transformations/FileWriteTranformation.xsl", $Read_InputVariable.body)</from>
+        <to variable="Write_InputVariable" part="body"/>
+      </copy>
+    </assign>
+    <invoke name="InvokeFileWrite" partnerLink="fileWriteReference" portType="ns2:Write_ptt"
+            operation="Write" inputVariable="Write_InputVariable" bpelx:invokeAsDetail="no"/>
+    <assign name="DBTranformation">
+      <bpelx:annotation>
+        <bpelx:pattern patternName="bpelx:transformation"></bpelx:pattern>
+      </bpelx:annotation>
+      <copy>
+        <from>ora:doXSLTransformForDoc("../Transformations/DBTranformation.xsl", $Read_InputVariable.body)</from>
+        <to variable="insert_InputVariable" part="EmployeeCollection"/>
+      </copy>
+    </assign>
+    <invoke name="InvokeDBService" bpelx:invokeAsDetail="no" partnerLink="dbWriteService"
+            portType="ns3:dbWriteService_ptt" operation="insert" inputVariable="insert_InputVariable"/>
+  </sequence>
+</process>

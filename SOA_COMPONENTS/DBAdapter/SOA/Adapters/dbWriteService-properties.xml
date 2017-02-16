@@ -1,0 +1,28 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+   <entry key="EMPLOYEE.EID:db_column_not_null">true</entry>
+   <entry key="EMPLOYEE.PHONE:db_column_precision">38</entry>
+   <entry key="EMPLOYEE.EMPLOYEE_NAME:db_column_type">VARCHAR2</entry>
+   <entry key="EMPLOYEE.STATE:db_column_size">20</entry>
+   <entry key="EMPLOYEE.PHONE:db_column_scale">0</entry>
+   <entry key="EMPLOYEE.PHONE:db_column_type">NUMBER</entry>
+   <entry key="EMPLOYEE.STATE:db_column_not_null">false</entry>
+   <entry key="EMPLOYEE.EID:db_column_type">NUMBER</entry>
+   <entry key="EMPLOYEE.PHONE:db_column_not_null">false</entry>
+   <entry key="EMPLOYEE.ADDRESS:db_column_type">VARCHAR2</entry>
+   <entry key="EMPLOYEE.EMPLOYEE_NAME:db_column_not_null">false</entry>
+   <entry key="EMPLOYEE:db_table_type">TABLE</entry>
+   <entry key="EMPLOYEE.EID:db_column_precision">38</entry>
+   <entry key="EMPLOYEE.EMPLOYEE_NAME:db_column_size">20</entry>
+   <entry key="root_descriptor_alias">EMPLOYEE</entry>
+   <entry key="EMPLOYEE:db_column_4">STATE</entry>
+   <entry key="EMPLOYEE.ADDRESS:db_column_not_null">false</entry>
+   <entry key="EMPLOYEE:db_column_3">PHONE</entry>
+   <entry key="EMPLOYEE:db_column_2">ADDRESS</entry>
+   <entry key="EMPLOYEE:db_column_1">EMPLOYEE_NAME</entry>
+   <entry key="EMPLOYEE:db_column_0">EID</entry>
+   <entry key="EMPLOYEE.ADDRESS:db_column_size">20</entry>
+   <entry key="EMPLOYEE.STATE:db_column_type">VARCHAR2</entry>
+   <entry key="EMPLOYEE.EID:db_column_scale">0</entry>
+</properties>

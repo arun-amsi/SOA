@@ -1,53 +1,77 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <dgm:gDiagram xmlns:dgm="http://xmlns.oracle.com/sca/soadgm">
-    <dgm:gService name="fileRead">
-        <dgm:body borderWidth="2" arcRad="20" X="21" Y="41" width="137" height="84">
+    <dgm:gService name="fileReadService">
+        <dgm:body borderWidth="2" arcRad="20" X="21" Y="99" width="137" height="84">
             <dgm:borderColor r="153" g="153" b="153"/>
             <dgm:bgColor r="255" g="255" b="255"/>
         </dgm:body>
-        <dgm:shadow arcRad="20" X="11" Y="34" width="156" height="98">
+        <dgm:shadow arcRad="20" X="11" Y="92" width="156" height="98">
             <dgm:bgColor r="196" g="228" b="240"/>
         </dgm:shadow>
-        <dgm:outputPort name="fileRead" X="127" Y="0" diameter="20" imageURI="oracle/tip/tools/ide/fabric/resource/image/visuals_rd1/servicereference.png" interface="http://xmlns.oracle.com/pcbpel/adapter/file/SOA_COMPONENTS/DBAdapter/fileRead#wsdl.interface(Read_ptt)"/>
+        <dgm:outputPort name="fileReadService" X="127" Y="0" diameter="20" imageURI="oracle/tip/tools/ide/fabric/resource/image/visuals_rd1/servicereference.png" interface="http://xmlns.oracle.com/pcbpel/adapter/file/SOA_COMPONENTS/DBAdapter/fileReadService#wsdl.interface(Read_ptt)"/>
         <dgm:nodeIcon URI="/oracle/tip/tools/ide/adapters/designtime/adapter/images/file_adapter_20x20.png" X="20" Y="4" width="20" height="20"/>
         <dgm:operations>
             <dgm:item>Read</dgm:item>
         </dgm:operations>
     </dgm:gService>
-    <dgm:gReference name="databaseReference">
-        <dgm:body borderWidth="2" arcRad="20" X="586" Y="41" width="136" height="84">
+    <dgm:gReference name="fileWriteReference">
+        <dgm:body borderWidth="2" arcRad="20" X="596" Y="26" width="136" height="84">
             <dgm:borderColor r="153" g="153" b="153"/>
             <dgm:bgColor r="255" g="255" b="255"/>
         </dgm:body>
-        <dgm:shadow arcRad="20" X="576" Y="34" width="156" height="98">
+        <dgm:shadow arcRad="20" X="586" Y="19" width="156" height="98">
             <dgm:bgColor r="196" g="228" b="240"/>
         </dgm:shadow>
-        <dgm:inputPort name="databaseReference" X="-10" Y="0" diameter="20" imageURI="oracle/tip/tools/ide/fabric/resource/image/visuals_rd1/servicereference.png" interface="http://xmlns.oracle.com/pcbpel/adapter/db/SOA_COMPONENTS/DBAdapter/databaseReference#wsdl.interface(databaseReference_ptt)"/>
+        <dgm:inputPort name="fileWriteReference" X="-10" Y="0" diameter="20" imageURI="oracle/tip/tools/ide/fabric/resource/image/visuals_rd1/servicereference.png" interface="http://xmlns.oracle.com/pcbpel/adapter/file/SOA_COMPONENTS/DBAdapter/fileWriteReference#wsdl.interface(Write_ptt)"/>
+        <dgm:nodeIcon URI="/oracle/tip/tools/ide/adapters/designtime/adapter/images/file_adapter_20x20.png" X="27" Y="4" width="20" height="20"/>
+        <dgm:operations>
+            <dgm:item>Write</dgm:item>
+        </dgm:operations>
+    </dgm:gReference>
+    <dgm:gReference name="dbWriteService">
+        <dgm:body borderWidth="2" arcRad="20" X="596" Y="144" width="136" height="84">
+            <dgm:borderColor r="153" g="153" b="153"/>
+            <dgm:bgColor r="255" g="255" b="255"/>
+        </dgm:body>
+        <dgm:shadow arcRad="20" X="586" Y="137" width="156" height="98">
+            <dgm:bgColor r="196" g="228" b="240"/>
+        </dgm:shadow>
+        <dgm:inputPort name="dbWriteService" X="-10" Y="0" diameter="20" imageURI="oracle/tip/tools/ide/fabric/resource/image/visuals_rd1/servicereference.png" interface="http://xmlns.oracle.com/pcbpel/adapter/db/SOA_COMPONENTS/DBAdapter/dbWriteService#wsdl.interface(dbWriteService_ptt)"/>
         <dgm:nodeIcon URI="/oracle/tip/tools/ide/adapters/designtime/adapter/images/db_adapter_20x20.png" X="27" Y="4" width="20" height="20"/>
         <dgm:operations>
             <dgm:item>insert</dgm:item>
         </dgm:operations>
     </dgm:gReference>
-    <dgm:gComponent name="DatabaseAdapterBPELProcess">
-        <dgm:body borderWidth="2" arcRad="20" X="307" Y="26" width="130" height="61">
+    <dgm:gComponent name="DbAdapterBPELService">
+        <dgm:body borderWidth="2" arcRad="20" X="312" Y="84" width="130" height="86">
             <dgm:borderColor r="69" g="113" b="140"/>
             <dgm:lightBgColor r="166" g="208" b="230"/>
             <dgm:darkBgColor r="99" g="162" b="201"/>
         </dgm:body>
-        <dgm:shadow arcRad="20" X="297" Y="19" width="150" height="77">
+        <dgm:shadow arcRad="20" X="302" Y="77" width="150" height="102">
             <dgm:bgColor r="196" g="228" b="240"/>
         </dgm:shadow>
-        <dgm:inputPort name="fileRead" X="-10" Y="15" diameter="20" imageURI="oracle/tip/tools/ide/fabric/resource/image/visuals_rd1/servicereference.png" interface="http://xmlns.oracle.com/pcbpel/adapter/file/SOA_COMPONENTS/DBAdapter/fileRead#wsdl.interface(Read_ptt)"/>
-        <dgm:outputPort name="databaseReference" X="120" Y="15" diameter="20" imageURI="oracle/tip/tools/ide/fabric/resource/image/visuals_rd1/servicereference.png" interface="http://xmlns.oracle.com/pcbpel/adapter/db/SOA_COMPONENTS/DBAdapter/databaseReference#wsdl.interface(databaseReference_ptt)"/>
+        <dgm:inputPort name="fileReadService" X="-10" Y="15" diameter="20" imageURI="oracle/tip/tools/ide/fabric/resource/image/visuals_rd1/servicereference.png" interface="http://xmlns.oracle.com/pcbpel/adapter/file/SOA_COMPONENTS/DBAdapter/fileReadService#wsdl.interface(Read_ptt)"/>
+        <dgm:outputPort name="fileWriteReference" X="120" Y="15" diameter="20" imageURI="oracle/tip/tools/ide/fabric/resource/image/visuals_rd1/servicereference.png" interface="http://xmlns.oracle.com/pcbpel/adapter/file/SOA_COMPONENTS/DBAdapter/fileWriteReference#wsdl.interface(Write_ptt)"/>
+        <dgm:outputPort name="dbWriteService" X="120" Y="40" diameter="20" imageURI="oracle/tip/tools/ide/fabric/resource/image/visuals_rd1/servicereference.png" interface="http://xmlns.oracle.com/pcbpel/adapter/db/SOA_COMPONENTS/DBAdapter/dbWriteService#wsdl.interface(dbWriteService_ptt)"/>
         <dgm:nodeIcon URI="/oracle/tip/tools/ide/bpel/shared/plugins/resources/images/soa/process_20x20.png" X="10" Y="4" width="20" height="20"/>
     </dgm:gComponent>
-    <dgm:gWireLink source="fileRead" target="DatabaseAdapterBPELProcess/fileRead" width="2">
-        <dgm:gSegment X1="168" Y1="51" X2="297" Y2="51"/>
+    <dgm:gWireLink source="fileReadService" target="DbAdapterBPELService/fileReadService" width="2">
+        <dgm:gSegment X1="168" Y1="109" X2="302" Y2="109"/>
         <dgm:baseColor r="153" g="153" b="153"/>
         <dgm:selectedColor r="49" g="106" b="196"/>
     </dgm:gWireLink>
-    <dgm:gWireLink source="DatabaseAdapterBPELProcess/databaseReference" target="databaseReference" width="2">
-        <dgm:gSegment X1="447" Y1="51" X2="576" Y2="51"/>
+    <dgm:gWireLink source="DbAdapterBPELService/fileWriteReference" target="fileWriteReference" width="2">
+        <dgm:gSegment X1="452" Y1="109" X2="476" Y2="109"/>
+        <dgm:gSegment X1="476" Y1="109" X2="476" Y2="36"/>
+        <dgm:gSegment X1="476" Y1="36" X2="586" Y2="36"/>
+        <dgm:baseColor r="153" g="153" b="153"/>
+        <dgm:selectedColor r="49" g="106" b="196"/>
+    </dgm:gWireLink>
+    <dgm:gWireLink source="DbAdapterBPELService/dbWriteService" target="dbWriteService" width="2">
+        <dgm:gSegment X1="452" Y1="134" X2="476" Y2="134"/>
+        <dgm:gSegment X1="476" Y1="134" X2="476" Y2="154"/>
+        <dgm:gSegment X1="476" Y1="154" X2="586" Y2="154"/>
         <dgm:baseColor r="153" g="153" b="153"/>
         <dgm:selectedColor r="49" g="106" b="196"/>
     </dgm:gWireLink>

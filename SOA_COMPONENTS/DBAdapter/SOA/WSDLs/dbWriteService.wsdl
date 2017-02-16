@@ -1,0 +1,28 @@
+<wsdl:definitions
+     name="dbWriteService"
+     targetNamespace="http://xmlns.oracle.com/pcbpel/adapter/db/SOA_COMPONENTS/DBAdapter/dbWriteService"
+     xmlns:tns="http://xmlns.oracle.com/pcbpel/adapter/db/SOA_COMPONENTS/DBAdapter/dbWriteService"
+     xmlns:jca="http://xmlns.oracle.com/pcbpel/wsdl/jca/"
+     xmlns:plt="http://schemas.xmlsoap.org/ws/2003/05/partner-link/"
+     xmlns:top="http://xmlns.oracle.com/pcbpel/adapter/db/top/dbWriteService"
+     xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+    >
+  <plt:partnerLinkType name="dbWriteService_plt" >
+    <plt:role name="dbWriteService_role" >
+      <plt:portType name="tns:dbWriteService_ptt" />
+    </plt:role>
+  </plt:partnerLinkType>
+    <wsdl:types>
+      <schema xmlns="http://www.w3.org/2001/XMLSchema" >
+        <import namespace="http://xmlns.oracle.com/pcbpel/adapter/db/top/dbWriteService" schemaLocation="../Schemas/dbWriteService_table.xsd" />
+      </schema>
+    </wsdl:types>
+    <wsdl:message name="EmployeeCollection_msg">
+        <wsdl:part name="EmployeeCollection" element="top:EmployeeCollection"/>
+    </wsdl:message>
+    <wsdl:portType name="dbWriteService_ptt">
+        <wsdl:operation name="insert">
+            <wsdl:input message="tns:EmployeeCollection_msg"/>
+        </wsdl:operation>
+    </wsdl:portType>
+</wsdl:definitions>

@@ -3,11 +3,11 @@
    <Fault>
       <severity>warning</severity>
       <loc/>
-      <line>20</line>
+      <line>21</line>
       <col/>
-      <file>BPEL/DatabaseAdapterBPELProcess.bpel</file>
-      <name>BPEL/DatabaseAdapterBPELProcess.bpel</name>
+      <file>BPEL/DbAdapterBPELService.bpel</file>
+      <name>BPEL/DbAdapterBPELService.bpel</name>
       <fix>You should place all explicit &lt;bpel:import> statements in a BPEL 2.0 process.</fix>
-      <msg>There are no explicit "import" statements in &lt;bpel:process> "DatabaseAdapterBPELProcess" as required by BPEL 2.0 standard.</msg>
+      <msg>There are no explicit "import" statements in &lt;bpel:process> "DbAdapterBPELService" as required by BPEL 2.0 standard.</msg>
    </Fault>
 </Faults>
