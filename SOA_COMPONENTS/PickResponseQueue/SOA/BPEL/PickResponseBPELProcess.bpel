@@ -1,0 +1,43 @@
+<?xml version = "1.0" encoding = "UTF-8" ?>
+<!--
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  Oracle JDeveloper BPEL Designer 
+  
+  Created: Fri Feb 17 00:21:49 IST 2017
+  Author:  Arun
+  Type: BPEL 2.0 Process
+  Purpose: Empty BPEL Process
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+-->
+<process name="PickResponseBPELProcess"
+               targetNamespace="http://xmlns.oracle.com/SOA_COMPONENTS/PickResponseQueue/PickResponseBPELProcess"
+               xmlns="http://docs.oasis-open.org/wsbpel/2.0/process/executable"
+               xmlns:client="http://xmlns.oracle.com/SOA_COMPONENTS/PickResponseQueue/PickResponseBPELProcess"
+               xmlns:ora="http://schemas.oracle.com/xpath/extension"
+               xmlns:bpel="http://docs.oasis-open.org/wsbpel/2.0/process/executable"
+         xmlns:bpelx="http://schemas.oracle.com/bpel/extension"
+         xmlns:ns1="http://xmlns.oracle.com/pcbpel/adapter/jms/SOA_COMPONENTS/PickResponseQueue/jmsResponseService"
+         xmlns:ui="http://xmlns.oracle.com/soa/designer">
+
+  <!-- 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+     ORCHESTRATION LOGIC                                               
+     Set of activities coordinating the flow of messages across the    
+     services integrated within this business process                  
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  -->
+  <import namespace="http://xmlns.oracle.com/pcbpel/adapter/jms/SOA_COMPONENTS/PickResponseQueue/jmsResponseService"
+          location="../WSDLs/jmsResponseService.wsdl" importType="http://schemas.xmlsoap.org/wsdl/"
+          ui:processWSDL="true"/>
+  <partnerLinks>
+    <partnerLink name="jmsResponseService" partnerLinkType="ns1:Consume_Message_plt" myRole="Consume_Message_role"/>
+  </partnerLinks>
+  <variables>
+    <variable name="ReceiveResponse_Consume_Message_InputVariable" messageType="ns1:Consume_Message_msg"/>
+  </variables>
+  <sequence name="main">
+    <receive name="ReceiveResponse" createInstance="yes" partnerLink="jmsResponseService"
+             portType="ns1:Consume_Message_ptt" operation="Consume_Message"
+             variable="ReceiveResponse_Consume_Message_InputVariable"/>
+  </sequence>
+</process>

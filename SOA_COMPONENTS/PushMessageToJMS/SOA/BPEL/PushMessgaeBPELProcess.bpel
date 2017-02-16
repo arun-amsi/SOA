@@ -1,0 +1,73 @@
+<?xml version = "1.0" encoding = "UTF-8" ?>
+<!--
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  Oracle JDeveloper BPEL Designer 
+  
+  Created: Thu Feb 16 23:36:38 IST 2017
+  Author:  Arun
+  Type: BPEL 2.0 Process
+  Purpose: One Way BPEL Process
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+-->
+<process name="PushMessgaeBPELProcess"
+               targetNamespace="http://xmlns.oracle.com/SOA_COMPONENTS/PushMessageToJMS/PushMessgaeBPELProcess"
+               xmlns="http://docs.oasis-open.org/wsbpel/2.0/process/executable"
+               xmlns:client="http://xmlns.oracle.com/SOA_COMPONENTS/PushMessageToJMS/PushMessgaeBPELProcess"
+               xmlns:ora="http://schemas.oracle.com/xpath/extension"
+               xmlns:ui="http://xmlns.oracle.com/soa/designer"
+               xmlns:bpel="http://docs.oasis-open.org/wsbpel/2.0/process/executable"
+         xmlns:ns1="http://xmlns.oracle.com/pcbpel/adapter/jms/SOA_COMPONENTS/PushMessageToJMS/jmsServiceReference"
+         xmlns:bpelx="http://schemas.oracle.com/bpel/extension">
+
+  <import ui:processWSDL="true" namespace="http://xmlns.oracle.com/SOA_COMPONENTS/PushMessageToJMS/PushMessgaeBPELProcess" location="../WSDLs/PushMessgaeBPELProcess.wsdl" importType="http://schemas.xmlsoap.org/wsdl/"/>
+  <!-- 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+      PARTNERLINKS                                                      
+      List of services participating in this BPEL process               
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  --> 
+  <partnerLinks>
+    <!-- 
+      The 'client' role represents the requester of this service. It is 
+      used for callback. The location and correlation information associated
+      with the client role are automatically set using WS-Addressing.
+    -->
+    <partnerLink name="pushmessgaebpelprocess_client" partnerLinkType="client:PushMessgaeBPELProcess" myRole="PushMessgaeBPELProcessProvider"/>
+    <partnerLink name="jmsServiceReference" partnerLinkType="ns1:Produce_Message_plt"
+                 partnerRole="Produce_Message_role"/>
+  </partnerLinks>
+
+  <!-- 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+      VARIABLES                                                        
+      List of messages and XML documents used within this BPEL process 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  -->
+  <variables>
+    <!-- Reference to the message passed as input during initiation -->
+    <variable name="inputVariable" messageType="client:PushMessgaeBPELProcessRequestMessage"/>
+    <variable name="Produce_Message_InputVariable" messageType="ns1:Produce_Message_msg"/>
+  </variables>
+
+  <!-- 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+     ORCHESTRATION LOGIC                                               
+     Set of activities coordinating the flow of messages across the    
+     services integrated within this business process                  
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  -->
+  <sequence name="main">
+
+    <!-- Receive input from requestor. (Note: This maps to operation defined in PushMessgaeBPELProcess.wsdl) -->
+    <receive name="receiveInput" partnerLink="pushmessgaebpelprocess_client" portType="client:PushMessgaeBPELProcess" operation="process" variable="inputVariable" createInstance="yes"/>
+    <assign name="Assign1">
+      <copy>
+        <from>$inputVariable.payload/client:input</from>
+        <to>$Produce_Message_InputVariable.body/client:input</to>
+      </copy>
+    </assign>
+    <invoke name="InvokeJMS" partnerLink="jmsServiceReference"
+            portType="ns1:Produce_Message_ptt" operation="Produce_Message"
+            inputVariable="Produce_Message_InputVariable" bpelx:invokeAsDetail="no"/>
+  </sequence>
+</process>

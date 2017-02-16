@@ -1,0 +1,66 @@
+<?xml version = "1.0" encoding = "UTF-8" ?>
+<!--
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  Oracle JDeveloper BPEL Designer 
+  
+  Created: Thu Feb 16 23:58:25 IST 2017
+  Author:  Arun
+  Type: BPEL 2.0 Process
+  Purpose: Empty BPEL Process
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+-->
+<process name="ConsumeRequestBPELProcess"
+               targetNamespace="http://xmlns.oracle.com/SOA_COMPONENTS/ConsumeMessgeFromJMS/ConsumeRequestBPELProcess"
+               xmlns="http://docs.oasis-open.org/wsbpel/2.0/process/executable"
+               xmlns:client="http://xmlns.oracle.com/SOA_COMPONENTS/ConsumeMessgeFromJMS/ConsumeRequestBPELProcess"
+               xmlns:ora="http://schemas.oracle.com/xpath/extension"
+               xmlns:bpel="http://docs.oasis-open.org/wsbpel/2.0/process/executable"
+         xmlns:ns1="http://xmlns.oracle.com/pcbpel/adapter/jms/SOA_COMPONENTS/ConsumeMessgeFromJMS/jmsConsumeReqService"
+         xmlns:ns2="http://xmlns.oracle.com/pcbpel/adapter/jms/SOA_COMPONENTS/ConsumeMessgeFromJMS/jmsPushResponseReference"
+         xmlns:bpelx="http://schemas.oracle.com/bpel/extension"
+         xmlns:ns3="http://xmlns.oracle.com/SOA_COMPONENTS/PushMessageToJMS/PushMessgaeBPELProcess"
+         xmlns:xp20="http://www.oracle.com/XSL/Transform/java/oracle.tip.pc.services.functions.Xpath20"
+         xmlns:bpws="http://schemas.xmlsoap.org/ws/2003/03/business-process/"
+         xmlns:oraext="http://www.oracle.com/XSL/Transform/java/oracle.tip.pc.services.functions.ExtFunc"
+         xmlns:dvm="http://www.oracle.com/XSL/Transform/java/oracle.tip.dvm.LookupValue"
+         xmlns:hwf="http://xmlns.oracle.com/bpel/workflow/xpath"
+         xmlns:ids="http://xmlns.oracle.com/bpel/services/IdentityService/xpath"
+         xmlns:bpm="http://xmlns.oracle.com/bpmn20/extensions" xmlns:ess="http://xmlns.oracle.com/scheduler"
+         xmlns:xdk="http://schemas.oracle.com/bpel/extension/xpath/function/xdk"
+         xmlns:xref="http://www.oracle.com/XSL/Transform/java/oracle.tip.xref.xpath.XRefXPathFunctions"
+         xmlns:ldap="http://schemas.oracle.com/xpath/extension/ldap" xmlns:ui="http://xmlns.oracle.com/soa/designer">
+
+  <!-- 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+     ORCHESTRATION LOGIC                                               
+     Set of activities coordinating the flow of messages across the    
+     services integrated within this business process                  
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  -->
+  <import namespace="http://xmlns.oracle.com/pcbpel/adapter/jms/SOA_COMPONENTS/ConsumeMessgeFromJMS/jmsConsumeReqService"
+          location="../WSDLs/jmsConsumeReqService.wsdl" importType="http://schemas.xmlsoap.org/wsdl/"
+          ui:processWSDL="true"/>
+  <partnerLinks>
+    <partnerLink name="jmsConsumeReqService" partnerLinkType="ns1:Consume_Message_plt" myRole="Consume_Message_role"/>
+    <partnerLink name="jmsPushResponseReference" partnerLinkType="ns2:Produce_Message_plt"
+                 partnerRole="Produce_Message_role"/>
+  </partnerLinks>
+  <variables>
+    <variable name="ReceiveMsg_Consume_Message_InputVariable" messageType="ns1:Consume_Message_msg"/>
+    <variable name="InvokeResponseQueue_Produce_Message_InputVariable" messageType="ns2:Produce_Message_msg"/>
+  </variables>
+  <sequence name="main">
+    <receive name="ReceiveMsg" createInstance="yes" partnerLink="jmsConsumeReqService"
+             portType="ns1:Consume_Message_ptt" operation="Consume_Message"
+             variable="ReceiveMsg_Consume_Message_InputVariable"/>
+    <assign name="Assign1">
+      <copy>
+        <from>'Verified'</from>
+        <to>$InvokeResponseQueue_Produce_Message_InputVariable.body/ns3:input</to>
+      </copy>
+    </assign>
+    <invoke name="InvokeResponseQueue" partnerLink="jmsPushResponseReference"
+            portType="ns2:Produce_Message_ptt" operation="Produce_Message"
+            inputVariable="InvokeResponseQueue_Produce_Message_InputVariable" bpelx:invokeAsDetail="no"/>
+  </sequence>
+</process>
