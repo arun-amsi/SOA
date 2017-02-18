@@ -4,8 +4,8 @@
      xmlns:tns="http://xmlns.oracle.com/pcbpel/adapter/jms/SOA_COMPONENTS/ConsumeMessgeFromJMS/jmsPushResponseReference"
      xmlns:jca="http://xmlns.oracle.com/pcbpel/wsdl/jca/"
      xmlns:plt="http://schemas.xmlsoap.org/ws/2003/05/partner-link/"
-     xmlns:imp1="http://xmlns.oracle.com/SOA_COMPONENTS/PushMessageToJMS/PushMessgaeBPELProcess"
      xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+     xmlns:imp1="http://xmlns.oracle.com/SOA_COMPONENTS/PushMessageToJMS/PushMessgaeBPELProcess"
     >
   <plt:partnerLinkType name="Produce_Message_plt" >
     <plt:role name="Produce_Message_role" >

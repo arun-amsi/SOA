@@ -29,13 +29,13 @@ public class JMSQueueTest {
 
         Context ctx = new InitialContext(props);
 
-        QueueConnectionFactory factory = (QueueConnectionFactory) ctx.lookup("arun/jmsAdapterReqCF"); //Connection Factory JNDI
+        QueueConnectionFactory factory = (QueueConnectionFactory) ctx.lookup("jms/testCF"); //Connection Factory JNDI
 
         QueueConnection con = factory.createQueueConnection();
 
         QueueSession session = con.createQueueSession(false, Session.AUTO_ACKNOWLEDGE);
 
-        Queue queue = (Queue) ctx.lookup("jms/pushRequest"); //Find the Queue
+        Queue queue = (Queue) ctx.lookup("jms/testQueue"); //Find the Queue
 
         QueueSender sender = session.createSender(queue); //Instantiating the message sender
 

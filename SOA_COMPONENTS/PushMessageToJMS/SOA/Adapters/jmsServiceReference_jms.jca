@@ -1,12 +1,12 @@
 <adapter-config name="jmsServiceReference" adapter="jms" wsdlLocation="../WSDLs/jmsServiceReference.wsdl" xmlns="http://platform.integration.oracle/blocks/adapter/fw/metadata">
   
-  <connection-factory location="arun/jmsAdapter" UIJmsProvider="WLSJMS" UIConnectionName="Weblogic"/>
+  <connection-factory location="jms/dbAdapterJNDI" UIJmsProvider="WLSJMS" UIConnectionName="Weblogic"/>
   <endpoint-interaction portType="Produce_Message_ptt" operation="Produce_Message">
     <interaction-spec className="oracle.tip.adapter.jms.outbound.JmsProduceInteractionSpec">
       <property name="TimeToLive" value="0"/>
       <property name="PayloadType" value="TextMessage"/>
       <property name="DeliveryMode" value="Persistent"/>
-      <property name="DestinationName" value="pushRequest"/>
+      <property name="DestinationName" value="jms/requestQueue"/>
     </interaction-spec>
   </endpoint-interaction>
 

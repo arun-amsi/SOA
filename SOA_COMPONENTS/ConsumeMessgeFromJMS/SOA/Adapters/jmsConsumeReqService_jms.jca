@@ -1,11 +1,11 @@
 <adapter-config name="jmsConsumeReqService" adapter="jms" wsdlLocation="../WSDLs/jmsConsumeReqService.wsdl" xmlns="http://platform.integration.oracle/blocks/adapter/fw/metadata">
   
-  <connection-factory location="arun/jmsAdapter" UIJmsProvider="WLSJMS" UIConnectionName="Weblogic"/>
+  <connection-factory location="jms/dbAdapterJNDI" UIJmsProvider="WLSJMS" UIConnectionName="Weblogic"/>
   <endpoint-activation portType="Consume_Message_ptt" operation="Consume_Message">
     <activation-spec className="oracle.tip.adapter.jms.inbound.JmsConsumeActivationSpec">
       <property name="PayloadType" value="TextMessage"/>
       <property name="UseMessageListener" value="false"/>
-      <property name="DestinationName" value="pushRequest"/>
+      <property name="DestinationName" value="jms/requestQueue"/>
     </activation-spec>
   </endpoint-activation>
 

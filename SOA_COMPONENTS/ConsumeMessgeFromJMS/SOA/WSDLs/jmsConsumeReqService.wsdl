@@ -5,8 +5,8 @@
      xmlns:jca="http://xmlns.oracle.com/pcbpel/wsdl/jca/"
      xmlns:plt="http://schemas.xmlsoap.org/ws/2003/05/partner-link/"
      xmlns:pc="http://xmlns.oracle.com/pcbpel/"
-     xmlns:imp1="http://xmlns.oracle.com/SOA_COMPONENTS/PushMessageToJMS/PushMessgaeBPELProcess"
      xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+     xmlns:imp1="http://xmlns.oracle.com/SOA_COMPONENTS/PushMessageToJMS/PushMessgaeBPELProcess"
     >
   <plt:partnerLinkType name="Consume_Message_plt" >
     <plt:role name="Consume_Message_role" >
