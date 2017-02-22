@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema attributeFormDefault="unqualified" elementFormDefault="qualified"
+        targetNamespace="http://xmlns.oracle.com/SOA_COMPONENTS/CompensationBPEL/CompensationBPELProcess"
+        xmlns="http://www.w3.org/2001/XMLSchema">
+  <element name="process">
+    <complexType>
+      <sequence>
+        <element name="input1" type="string"/>
+        <element name="input2" type="string"/>
+      </sequence>
+    </complexType>
+  </element>
+  <element name="processResponse">
+    <complexType>
+      <sequence>
+        <element name="Add" type="string"/>
+        <element name="Sub" type="string"/>
+        <element name="Mul" type="string"/>
+        <element name="Div" type="string"/>
+      </sequence>
+    </complexType>
+  </element>
+</schema>

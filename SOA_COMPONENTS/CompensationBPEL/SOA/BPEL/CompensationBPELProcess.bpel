@@ -1,0 +1,134 @@
+<?xml version = "1.0" encoding = "UTF-8" ?>
+<!--
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  Oracle JDeveloper BPEL Designer 
+  
+  Created: Wed Feb 22 23:30:30 IST 2017
+  Author:  Arun
+  Type: BPEL 2.0 Process
+  Purpose: Synchronous BPEL Process
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+-->
+<process name="CompensationBPELProcess"
+               targetNamespace="http://xmlns.oracle.com/SOA_COMPONENTS/CompensationBPEL/CompensationBPELProcess"
+               xmlns="http://docs.oasis-open.org/wsbpel/2.0/process/executable"
+               xmlns:client="http://xmlns.oracle.com/SOA_COMPONENTS/CompensationBPEL/CompensationBPELProcess"
+               xmlns:ora="http://schemas.oracle.com/xpath/extension"
+               xmlns:ui="http://xmlns.oracle.com/soa/designer"
+               xmlns:bpelx="http://schemas.oracle.com/bpel/extension"
+         xmlns:bpel="http://docs.oasis-open.org/wsbpel/2.0/process/executable"
+         xmlns:xp20="http://www.oracle.com/XSL/Transform/java/oracle.tip.pc.services.functions.Xpath20"
+         xmlns:bpws="http://schemas.xmlsoap.org/ws/2003/03/business-process/"
+         xmlns:oraext="http://www.oracle.com/XSL/Transform/java/oracle.tip.pc.services.functions.ExtFunc"
+         xmlns:dvm="http://www.oracle.com/XSL/Transform/java/oracle.tip.dvm.LookupValue"
+         xmlns:hwf="http://xmlns.oracle.com/bpel/workflow/xpath"
+         xmlns:ids="http://xmlns.oracle.com/bpel/services/IdentityService/xpath"
+         xmlns:bpm="http://xmlns.oracle.com/bpmn20/extensions" xmlns:ess="http://xmlns.oracle.com/scheduler"
+         xmlns:xdk="http://schemas.oracle.com/bpel/extension/xpath/function/xdk"
+         xmlns:xref="http://www.oracle.com/XSL/Transform/java/oracle.tip.xref.xpath.XRefXPathFunctions"
+         xmlns:ldap="http://schemas.oracle.com/xpath/extension/ldap">
+
+    <import ui:processWSDL="true" namespace="http://xmlns.oracle.com/SOA_COMPONENTS/CompensationBPEL/CompensationBPELProcess" location="../WSDLs/CompensationBPELProcess.wsdl" importType="http://schemas.xmlsoap.org/wsdl/"/>
+    <!-- 
+      ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        PARTNERLINKS                                                      
+        List of services participating in this BPEL process               
+      ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    --> 
+  <partnerLinks>
+    <!-- 
+      The 'client' role represents the requester of this service. It is 
+      used for callback. The location and correlation information associated
+      with the client role are automatically set using WS-Addressing.
+    -->
+    <partnerLink name="compensationbpelprocess_client" partnerLinkType="client:CompensationBPELProcess" myRole="CompensationBPELProcessProvider"/>
+  </partnerLinks>
+
+  <!-- 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+      VARIABLES                                                        
+      List of messages and XML documents used within this BPEL process 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  -->
+  <variables>
+    <!-- Reference to the message passed as input during initiation -->
+    <variable name="inputVariable" messageType="client:CompensationBPELProcessRequestMessage"/>
+
+    <!-- Reference to the message that will be returned to the requester-->
+    <variable name="outputVariable" messageType="client:CompensationBPELProcessResponseMessage"/>
+  </variables>
+
+  <!-- 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+     ORCHESTRATION LOGIC                                               
+     Set of activities coordinating the flow of messages across the    
+     services integrated within this business process                  
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  -->
+  <sequence name="main">
+
+    <!-- Receive input from requestor. (Note: This maps to operation defined in CompensationBPELProcess.wsdl) -->
+    <receive name="receiveInput" partnerLink="compensationbpelprocess_client" portType="client:CompensationBPELProcess" operation="process" variable="inputVariable" createInstance="yes"/>
+    <scope name="Scope1">
+      <faultHandlers>
+        <catchAll>
+          <compensateScope name="CompensateScope1" target="Add"/>
+        </catchAll>
+      </faultHandlers>
+      <sequence>
+        <scope name="Add">
+          <compensationHandler>
+            <assign name="Assign2">
+              <copy>
+                <from>0</from>
+                <to>$outputVariable.payload/client:Add</to>
+              </copy>
+            </assign>
+          </compensationHandler>
+          <sequence name="Sequence1">
+            <assign name="Assign1">
+              <copy>
+                <from>$inputVariable.payload/client:input1</from>
+                <to>$outputVariable.payload/client:Add</to>
+              </copy>
+            </assign>
+          </sequence>
+        </scope>
+        <scope name="Sub">
+          <compensationHandler>
+            <assign name="Assign4">
+              <copy>
+                <from>0</from>
+                <to>$outputVariable.payload/client:Sub</to>
+              </copy>
+            </assign>
+          </compensationHandler>
+          <assign name="Assign3">
+            <copy>
+              <from>$inputVariable.payload/client:input1 - $inputVariable.payload/client:input2</from>
+              <to>$outputVariable.payload/client:Sub</to>
+            </copy>
+          </assign>
+        </scope>
+        <scope name="Mul">
+          <compensationHandler>
+            <assign name="Assign5">
+              <copy>
+                <from>0</from>
+                <to>$outputVariable.payload/client:Mul</to>
+              </copy>
+            </assign>
+          </compensationHandler>
+          <assign name="Assign6">
+            <copy>
+              <from>$inputVariable.payload/client:input1 * $inputVariable.payload/client:input2</from>
+              <to>$outputVariable.payload/client:Mul</to>
+            </copy>
+          </assign>
+        </scope>
+      </sequence>
+    </scope>
+    <!-- Generate reply to synchronous request -->
+    <reply name="replyOutput" partnerLink="compensationbpelprocess_client" portType="client:CompensationBPELProcess" operation="process" variable="outputVariable"/>
+  </sequence>
+</process>
